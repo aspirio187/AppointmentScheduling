@@ -36,6 +36,22 @@ namespace AppointmentScheduling.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                if (result.Succeeded)
+                {
+                    RedirectToAction("Index", "Home");
+                }
+                ModelState.AddModelError("", "Invalid login attempt");
+            }
+            return View(model);
+        }
+
         public async Task<IActionResult> Register()
         {
             if (!await _roleManager.RoleExistsAsync(Helper.Admin))
@@ -67,8 +83,19 @@ namespace AppointmentScheduling.Controllers
                     await _signInManager.SignInAsync(user, false);
                     return RedirectToAction("Index", "Home");
                 }
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
             }
-            return View();
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logoff()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login", "Account");
         }
     }
 }
