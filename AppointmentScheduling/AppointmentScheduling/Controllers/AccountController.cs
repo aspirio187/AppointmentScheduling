@@ -17,7 +17,7 @@ namespace AppointmentScheduling.Controllers
                 throw new ArgumentNullException(nameof(db));
         }
 
-        public IActionResult Index()
+        public IActionResult Login()
         {
             return View();
         }
