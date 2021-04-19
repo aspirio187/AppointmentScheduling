@@ -32,7 +32,7 @@ namespace AppointmentScheduling.Services
             return doctors;
         }
 
-        public List<DoctorViewModel> GetPatientList()
+        public List<PatientViewModel> GetPatientList()
         {
             var patients = (from user in _db.Users
                            join userRoles in _db.UserRoles on user.Id equals userRoles.UserId

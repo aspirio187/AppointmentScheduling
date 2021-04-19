@@ -9,6 +9,6 @@ namespace AppointmentScheduling.Services
     public interface IAppointmentService
     {
         public List<DoctorViewModel> GetDoctorList();
-        public List<DoctorViewModel> GetPatientList();
+        public List<PatientViewModel> GetPatientList();
     }
 }
