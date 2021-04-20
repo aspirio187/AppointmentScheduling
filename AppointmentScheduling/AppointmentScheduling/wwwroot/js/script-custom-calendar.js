@@ -33,7 +33,10 @@ function InitializeCalendar() {
                     right: 'month,agendaWeek,agendaDay'
                 },
                 selectable: true,
-                editable: false
+                editable: false,
+                select: function (event) {
+                    onShowModal(event, null);
+                }
             });
 
             calendar.render();
@@ -41,4 +44,8 @@ function InitializeCalendar() {
     } catch (e) {
         alert(e);
     }
+}
+
+function onShowModal(obj, isEventDetails) {
+    $("#appointmentInput").modal("show");
 }
