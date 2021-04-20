@@ -54,6 +54,7 @@ namespace AppointmentScheduling.Services
             if (model is not null && model.Id > 0)
             {
                 // update
+                return 1;
             }
             else
             {

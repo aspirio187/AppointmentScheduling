@@ -12,6 +12,19 @@ namespace AppointmentScheduling.Helpers
         public static string Patient = "Patient";
         public static string Doctor = "Doctor";
 
+        public static string AppointmentAdded = "Appointment added successfully.";
+        public static string AppointmentUpdated = "Appointment update successfully.";
+        public static string AppointmentDeleted = "Appointment deleted successfully.";
+        public static string AppointmentExists = "Appointment for selected date and time already exists.";
+        public static string AppointmentNotExists = "Appoint do not exists.";
+
+        public static string AppointmentAddError = "Something went wrong. Please try again.";
+        public static string AppointmentUpdateError = "Something went wrong. Please try again.";
+        public static string SomethingWentWrong = "Something went wrong. Please try again.";
+
+        public static int Success_Code = 1;
+        public static int Failure_Code = 0;
+
         public static List<SelectListItem> GetRolesForDropDown()
         {
             return new List<SelectListItem>
