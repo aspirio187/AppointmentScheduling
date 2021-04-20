@@ -23,24 +23,23 @@
 
 function InitializeCalendar() {
     try {
-        let calendarE1 = document.getElementById('calendar');
-        if (calendarE1 !== null) {
-            let calendar = new FullCalendar.Calendar(calendarE1, {
-                timezone: false,
-                header: {
-                    left: 'prev,next,today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
-                },
-                selectable: true,
-                editable: false,
-                select: function (event) {
-                    onShowModal(event, null);
-                }
-            });
 
-            calendar.render();
-        }
+        let calendarEl = document.getElementById('calendar');
+        let calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            headerToolbar: {
+                left: 'prev,next,today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            selectable: true,
+            editable: false,
+            select: function (event) {
+                onShowModal(event, null);
+            }
+        });
+        calendar.render();
+
     } catch (e) {
         alert(e);
     }
