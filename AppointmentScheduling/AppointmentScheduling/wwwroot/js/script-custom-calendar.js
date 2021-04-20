@@ -1,4 +1,10 @@
-﻿$(document).ready(function () {
+﻿let routeURL = location.protocol + "//" + location.host;
+
+$(document).ready(function () {
+    $("#appointmentDate").kendoDateTimePicker({
+        value: new Date(),
+        dateInput: false
+    });
     InitializeCalendar();
 });
 
@@ -66,4 +72,22 @@ function onSubmitForm() {
         DoctorId: $("#doctorId").val(),
         PatientId: $("#patientId").val(),
     }
+
+    $.ajax({
+        url: routeURL + '/api/Appointment/SaveCalendarData',
+        type: 'POST',
+        data: JSON.stringify(requestData),
+        contentType: 'application/json',
+        success: function (response) {
+            if (response.status === 1 || response.status === 2) {
+                $.notify(response.message, "success");
+                onCloseModal();
+            } else {
+                $.notify(response.message, "error");
+            }
+        },
+        error: function (xhr) {
+            $.notify("Error", "error");
+        }
+    });
 }

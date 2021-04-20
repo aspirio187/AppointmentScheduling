@@ -4,6 +4,7 @@ using AppointmentScheduling.Models;
 using AppointmentScheduling.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -49,8 +50,10 @@ namespace AppointmentScheduling.Services
 
         public async Task<int> AddUpdate(AppointmentViewModel model)
         {
-            var startDate = DateTime.Parse(model.StartDate);
-            var endDate = DateTime.Parse(model.StartDate).AddMinutes(Convert.ToDouble(model.Duration));
+            // var startDate = DateTime.Parse(model.startDate) => NE FONCTIONNE PAS IL FAUT UTILISER LA FONCTION SUIVANTE
+            var startDate = DateTime.ParseExact(model.StartDate, "M/d/yyyy h:mm tt", CultureInfo.InvariantCulture);
+            //var endDate = DateTime.Parse(model.StartDate).AddMinutes(Convert.ToDouble(model.Duration)); => NE FONCTIONNE PAS NON PLUS IL FAUT UTILISER LA FONCTION SUIVANTE
+            var endDate = startDate.AddMinutes(Convert.ToDouble(model.Duration));
             if (model is not null && model.Id > 0)
             {
                 // update
