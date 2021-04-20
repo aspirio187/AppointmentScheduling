@@ -55,3 +55,15 @@ function onShowModal(obj, isEventDetails) {
 function onCloseModal() {
     $("#appointmentInput").modal("hide");
 }
+
+function onSubmitForm() {
+    let requestData = {
+        Id: parseInt($("#id").val()),
+        Title: $("#title").val(),
+        Description: $("#description").val(),
+        StartDate: $("#appointmentDate").val(),
+        Duration: $("#duration").val(),
+        DoctorId: $("#doctorId").val(),
+        PatientId: $("#patientId").val(),
+    }
+}
