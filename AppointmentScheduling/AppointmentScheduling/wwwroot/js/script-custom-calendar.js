@@ -27,13 +27,15 @@ $(document).ready(function () {
 //    }
 //}
 
+let calendar;
+
 function InitializeCalendar() {
     try {
 
         let calendarEl = document.getElementById('calendar');
 
         if (calendarEl !== null) {
-            let calendar = new FullCalendar.Calendar(calendarEl, {
+                calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 headerToolbar: {
                     left: 'prev,next,today',
@@ -168,4 +170,8 @@ function getEventDetailsByEventId(info) {
             $.notify("Error", "error");
         }
     });
+}
+
+function onDoctorChange() {
+    calendar.refetchEvents();
 }
