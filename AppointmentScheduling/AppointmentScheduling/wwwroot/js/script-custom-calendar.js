@@ -16,7 +16,7 @@ function InitializeCalendar() {
         let calendarEl = document.getElementById('calendar');
 
         if (calendarEl !== null) {
-                calendar = new FullCalendar.Calendar(calendarEl, {
+            calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 headerToolbar: {
                     left: 'prev,next,today',
@@ -78,6 +78,10 @@ function onShowModal(obj, isEventDetails) {
         $("#doctorId").val(obj.doctorId);
         $("#patientId").val(obj.patientId);
         $("#id").val(obj.id);
+    }
+    else {
+        $("#appointmentDate").val(obj.startStr + " " + new moment().format("hh:mm A"));
+        $("#id").val(0);
     }
     $("#appointmentInput").modal("show");
 }
