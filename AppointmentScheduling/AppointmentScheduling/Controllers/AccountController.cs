@@ -88,6 +88,10 @@ namespace AppointmentScheduling.Controllers
                     {
                         await _signInManager.SignInAsync(user, false);
                     }
+                    else
+                    {
+                        TempData["newAdminSignUp"] = user.Name;
+                    }
                     return RedirectToAction("Index", "Appointment");
                 }
                 foreach (var error in result.Errors)

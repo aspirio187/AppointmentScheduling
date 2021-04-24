@@ -2,11 +2,21 @@
 @inject IHttpContextAccessor HttpContextAccessor
 
 <div class="row">
+
+    @if (TempData.ContainsKey("newAdminSignUp"))
+    {
+        <div class="container">
+            <div class="alert alert-success alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
+                <strong>Account created for @TempData["newAdminSignUp"].ToString()</strong>
+            </div>
+        </div>
+    }
     <div class="container">
         @if (User.IsInRole(AppointmentScheduling.Helpers.Helper.Admin))
         {
             <div class="row">
-                <div class="form-group row col-4" id="divDoctorList">
+                <div class="form-group col-4" id="divDoctorList">
                     <label> Select Doctor </label>
                     @Html.DropDownList("doctorId", new SelectList(ViewBag.DoctorList, "Id", "Name"), new
                     {
