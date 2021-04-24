@@ -19,7 +19,7 @@ namespace AppointmentScheduling.Helpers
         public static string AppointmentNotExists = "Appoint do not exists.";
 
         public static string MeetingConfirm = "Meeting confirm successfully";
-        public static string MeetingConfirmError = "Meeting confirm Error"; 
+        public static string MeetingConfirmError = "Meeting confirm Error";
 
         public static string AppointmentAddError = "Something went wrong. Please try again.";
         public static string AppointmentUpdateError = "Something went wrong. Please try again.";
@@ -28,14 +28,24 @@ namespace AppointmentScheduling.Helpers
         public static int Success_Code = 1;
         public static int Failure_Code = 0;
 
-        public static List<SelectListItem> GetRolesForDropDown()
+        public static List<SelectListItem> GetRolesForDropDown(bool isAdmin)
         {
-            return new List<SelectListItem>
+            if (isAdmin)
             {
-                new SelectListItem(){ Value=Helper.Admin, Text=Helper.Admin},
-                new SelectListItem(){ Value=Helper.Patient, Text=Helper.Patient},
-                new SelectListItem(){ Value=Helper.Doctor, Text=Helper.Doctor},
-            };
+                return new List<SelectListItem>
+                {
+                    new SelectListItem(){ Value=Helper.Admin, Text=Helper.Admin},
+                };
+            }
+            else
+            {
+                return new List<SelectListItem>
+                {
+                    new SelectListItem(){ Value=Helper.Patient, Text=Helper.Patient},
+                    new SelectListItem(){ Value=Helper.Doctor, Text=Helper.Doctor},
+                };
+            }
+
         }
 
         public static List<SelectListItem> GetTimeDropDown()
