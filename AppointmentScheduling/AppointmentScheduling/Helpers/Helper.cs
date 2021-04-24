@@ -18,6 +18,9 @@ namespace AppointmentScheduling.Helpers
         public static string AppointmentExists = "Appointment for selected date and time already exists.";
         public static string AppointmentNotExists = "Appoint do not exists.";
 
+        public static string MeetingConfirm = "Meeting confirm successfully";
+        public static string MeetingConfirmError = "Meeting confirm Error"; 
+
         public static string AppointmentAddError = "Something went wrong. Please try again.";
         public static string AppointmentUpdateError = "Something went wrong. Please try again.";
         public static string SomethingWentWrong = "Something went wrong. Please try again.";
