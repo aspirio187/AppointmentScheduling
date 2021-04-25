@@ -13,7 +13,7 @@ namespace AppointmentScheduling.Utilities
     {
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
-            MailjetClient client = new MailjetClient(Environment.GetEnvironmentVariable("4b3fa6f8f22ab4587b170116c3db4fb3"), Environment.GetEnvironmentVariable("3249a3585c035c0de609d8d8c2cfd11f"))
+            MailjetClient client = new MailjetClient("4b3fa6f8f22ab4587b170116c3db4fb3", "3249a3585c035c0de609d8d8c2cfd11f")
             {
 
             };
@@ -21,21 +21,15 @@ namespace AppointmentScheduling.Utilities
             {
                 Resource = Send.Resource,
             }
-               .Property(Send.Messages, new JArray {
+            .Property(Send.FromEmail, "soultan_98@hotmail.com")
+            .Property(Send.FromName, "Appointment Scheduler")
+            .Property(Send.Subject, subject)
+            .Property(Send.HtmlPart, htmlMessage)
+            .Property(Send.Recipients, new JArray {
                 new JObject {
-                 {"From", new JObject {
-                  {"Email", "soultan_98@hotmail.com"},
-                  {"Name", "Appointment Scheduler"}
-                  }},
-                 {"To", new JArray {
-                  new JObject {
-                   {"Email", email}
-                   }
-                  }},
-                 {"Subject", subject},
-                 {"HTMLPart", htmlMessage}
+                 {"Email", email}
                  }
-                   });
+                });
             MailjetResponse response = await client.PostAsync(request);
         }
     }

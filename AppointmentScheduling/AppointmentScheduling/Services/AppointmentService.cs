@@ -2,6 +2,8 @@
 using AppointmentScheduling.Helpers;
 using AppointmentScheduling.Models;
 using AppointmentScheduling.Models.ViewModels;
+using AppointmentScheduling.Utilities;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -13,11 +15,14 @@ namespace AppointmentScheduling.Services
     public class AppointmentService : IAppointmentService
     {
         private readonly ApplicationDbContext _db;
+        private readonly IEmailSender _emailSender;
 
-        public AppointmentService(ApplicationDbContext db)
+        public AppointmentService(ApplicationDbContext db, IEmailSender emailSender)
         {
             _db = db ??
                 throw new ArgumentNullException(nameof(db));
+            _emailSender = emailSender ??
+                throw new ArgumentNullException(nameof(emailSender));
         }
 
         public List<DoctorViewModel> GetDoctorList()
@@ -54,6 +59,8 @@ namespace AppointmentScheduling.Services
             var startDate = DateTime.ParseExact(model.StartDate, "M/d/yyyy h:mm tt", CultureInfo.InvariantCulture);
             //var endDate = DateTime.Parse(model.StartDate).AddMinutes(Convert.ToDouble(model.Duration)); => NE FONCTIONNE PAS NON PLUS IL FAUT UTILISER LA FONCTION SUIVANTE
             var endDate = startDate.AddMinutes(Convert.ToDouble(model.Duration));
+            var patient = _db.Users.FirstOrDefault(x => x.Id == model.PatientId);
+            var doctor = _db.Users.FirstOrDefault(x => x.Id == model.DoctorId);
             if (model is not null && model.Id > 0)
             {
                 // update
@@ -74,6 +81,10 @@ namespace AppointmentScheduling.Services
                     IsDoctorApproved = false,
                     AdminId = model.AdminId
                 };
+                await _emailSender.SendEmailAsync(doctor.Email, "Appointment created",
+                    $"Your appointment with {patient.Name} is created and in pending status");
+                await _emailSender.SendEmailAsync(patient.Email, "Appointment created",
+                    $"Your appointment with {doctor.Name} is created and in pending status");
                 _db.Appointments.Add(appointment);
                 await _db.SaveChangesAsync();
                 return 2;
