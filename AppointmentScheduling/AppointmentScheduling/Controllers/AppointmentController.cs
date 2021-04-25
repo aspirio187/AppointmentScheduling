@@ -1,5 +1,6 @@
 ﻿using AppointmentScheduling.Helpers;
 using AppointmentScheduling.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace AppointmentScheduling.Controllers
 {
+    [Authorize]
     public class AppointmentController : Controller
     {
         private readonly IAppointmentService _appointmentService;
@@ -18,6 +20,7 @@ namespace AppointmentScheduling.Controllers
                 throw new ArgumentNullException(nameof(appointmentService));
         }
 
+        //[Authorize(Roles = Helper.Admin)]
         public IActionResult Index()
         {
             ViewBag.DoctorList = _appointmentService.GetDoctorList();

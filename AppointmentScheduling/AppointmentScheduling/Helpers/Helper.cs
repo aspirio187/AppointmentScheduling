@@ -8,9 +8,9 @@ namespace AppointmentScheduling.Helpers
 {
     public static class Helper
     {
-        public static string Admin = "Admin";
-        public static string Patient = "Patient";
-        public static string Doctor = "Doctor";
+        public const string Admin = "Admin";
+        public const string Patient = "Patient";
+        public const string Doctor = "Doctor";
 
         public static string AppointmentAdded = "Appointment added successfully.";
         public static string AppointmentUpdated = "Appointment update successfully.";

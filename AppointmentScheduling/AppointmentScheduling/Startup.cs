@@ -46,6 +46,10 @@ namespace AppointmentScheduling
                 options.Cookie.IsEssential = true;
             });
             services.AddHttpContextAccessor();
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Home/AccessDenied");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
